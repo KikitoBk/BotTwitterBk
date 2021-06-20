@@ -12,11 +12,13 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
 
-number=random.randint(1,10000000)
+for i in range(3):
 
-try:
-    api.update_status(str(number)+' @BurgerKingFR',in_reply_to_status_id=1405819904071249928)
-except:
-    None
+    number=random.randint(1,10000000)
+
+    try:
+        api.update_status(str(number)+' @BurgerKingFR',in_reply_to_status_id=1405819904071249928)
+    except:
+        None
 
 
