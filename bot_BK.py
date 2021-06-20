@@ -13,7 +13,7 @@ api = tweepy.API(auth)
 
 
 try:
-    api.update_status(str(number)+' @BurgerKingFR',in_reply_to_status_id=1405819904071249928)
+    api.update_status('merciiiii @BurgerKingFR',in_reply_to_status_id=1405819904071249928)
 except:
     None
 
