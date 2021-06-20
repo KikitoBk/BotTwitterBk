@@ -1,6 +1,5 @@
 import tweepy
 import random
-import time
 
 API_KEY = "TsDC5eideARsqYRokOqWXknx2"
 API_SECRET = "cTq3mcE4lsFl9RgMSsz43E4IAY8nOQziuD17u8vjyCtgdnITHI"
@@ -12,14 +11,10 @@ auth = tweepy.OAuthHandler(API_KEY, API_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
 api = tweepy.API(auth)
+number=random.randint(1,10000000)
 
-while True:
-
-    number=random.randint(1,10000000)
-
-    try:
-        api.update_status(str(number)+' @BurgerKingFR',in_reply_to_status_id=1405819904071249928)
-    except:
-        None
-    time.sleep(10)
+try:
+    api.update_status(str(number)+' @BurgerKingFR',in_reply_to_status_id=1405819904071249928)
+except:
+    None
 
