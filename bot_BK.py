@@ -74,73 +74,80 @@ api = tweepy.API(auth)
 # pour chercher les tendances
 ###api.trends_place(23424819)[0]['trends'][49]['name']
 
-    
-query = 'giveaway'
-max_tweets = 200
-verif=True
-while verif:
+while True:  
+    query = 'giveaway'
+    max_tweets = 200
+    verif=True
+    while verif:
+        try:
+            searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
+            verif=False
+        except:
+            print('erreur')
+            time.sleep(20)
+            
+
+
+    listetr=[]
+    ##while len(listetr)<1:
+    ##    max_tweets += 10
+    ##    searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
+    ##    listetr=[]
+    ##    for i in searched_tweets:
+    ##        if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id!=None:         #searched_tweets[0].id
+    ##            listetr.append(i)
+    ##            print('\n\n-----------------------------------------------\n'+i.text)
+
+
+    for i in searched_tweets:
+        if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id==None:         #searched_tweets[0].id
+            listetr.append(i)
+            #print('\n\n-----------------------------------------------\n'+i.text)
+
     try:
+        query = 'concours'
+        max_tweets = 100
         searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
-        verif=False
-    except:
-        print('erreur')
-        time.sleep(20)
-        
+        for i in searched_tweets:
+            if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id==None:         #searched_tweets[0].id
+                listetr.append(i)
+                #print('\n\n-----------------------------------------------\n'+i.text)
 
-
-listetr=[]
-##while len(listetr)<1:
-##    max_tweets += 10
-##    searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
-##    listetr=[]
-##    for i in searched_tweets:
-##        if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id!=None:         #searched_tweets[0].id
-##            listetr.append(i)
-##            print('\n\n-----------------------------------------------\n'+i.text)
-
-
-for i in searched_tweets:
-    if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id==None:         #searched_tweets[0].id
-        listetr.append(i)
-        #print('\n\n-----------------------------------------------\n'+i.text)
-
-try:
-    query = 'concours'
-    max_tweets = 100
-    searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
-    for i in searched_tweets:
-        if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id==None:         #searched_tweets[0].id
-            listetr.append(i)
-            #print('\n\n-----------------------------------------------\n'+i.text)
-
-except:
-    None
-    
-
-try:
-    query = 'concours paypal'
-    max_tweets = 100
-    searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
-
-    for i in searched_tweets:
-        if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id==None:         #searched_tweets[0].id
-            listetr.append(i)
-            #print('\n\n-----------------------------------------------\n'+i.text)
-except:
-    None
-
-for i,j in enumerate(listetr):
-    if i%5==0:
-        verif=True
-        while verif:
-            try:
-                tweetopif(api)
-                verif=False
-            except:
-                print('erreur tweet')
-                time.sleep(20)
-    try:
-        routine(j)
     except:
         None
-    time.sleep(36)
+        
+
+    try:
+        query = 'concours paypal'
+        max_tweets = 100
+        searched_tweets = [status for status in tweepy.Cursor(api.search, q=query).items(max_tweets)]
+
+        for i in searched_tweets:
+            if i.text[0]+i.text[1]!='RT' and i.in_reply_to_status_id==None:         #searched_tweets[0].id
+                listetr.append(i)
+                #print('\n\n-----------------------------------------------\n'+i.text)
+    except:
+        None
+
+    for i,j in enumerate(listetr):
+        if i%5==0:
+            verif=True
+            while verif:
+                try:
+                    tweetopif(api)
+                    verif=False
+                except:
+                    print('erreur tweet')
+                    time.sleep(20)
+        try:
+            routine(j)
+        except:
+            None
+        time.sleep(36)
+
+    time.sleep(1200)
+
+#api.update_status('Test',in_reply_to_status_id=1406609822460559361)
+
+            
+
