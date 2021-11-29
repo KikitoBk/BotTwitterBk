@@ -84,7 +84,7 @@ while True:
             verif=False
         except:
             print('erreur')
-            time.sleep(20)
+            time.sleep(2)
             
 
 
@@ -143,9 +143,9 @@ while True:
             routine(j)
         except:
             None
-        time.sleep(36)
+        time.sleep(3)
 
-    time.sleep(1200)
+    time.sleep(12)
 
 #api.update_status('Test',in_reply_to_status_id=1406609822460559361)
 
